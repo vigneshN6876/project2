@@ -38,7 +38,7 @@ app.post('/api/students' , async (req , res) => {
 app.put('/api/students/:id' , async (req , res) => {
     try {
         const {Name , rollno} = req.body
-        const updated = await Student.findByIdAndUpdate(req.params.id , {Name , rollno})
+        const updated = await Student.findByIdAndUpdate(req.params.id , {Name , rollno} ,  {new : true})
         if(!updated){
             res.send("no data to be updated")
         }
@@ -47,6 +47,14 @@ app.put('/api/students/:id' , async (req , res) => {
         res.status(400).json({message : error.message})
     }
 })
-app.delete('/api/students' , () => {
-    
+app.delete('/api/students/:id' , async (req , res) => {
+    try {
+        const deleted = await Student.findByIdAndDelete(req.params.id)
+        if(!deleted){
+            res.send("no data to be updated")
+        }
+        res.send(deleted)
+    } catch (error) {
+        res.status(400).json({message : error.message})
+    }
 })
