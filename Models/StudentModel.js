@@ -1,7 +1,7 @@
 const express = require('express')
 const mongoose = require('mongoose')
 
-const Student = mongoose.Schema({
+const StudentSchema = mongoose.Schema({
     Name: {
         type : String,
         required : true
@@ -12,4 +12,4 @@ const Student = mongoose.Schema({
     }
 })
 
-module.exports =  Student 
+module.exports =  mongoose.model("Student" , StudentSchema) 

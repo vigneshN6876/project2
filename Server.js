@@ -35,8 +35,17 @@ app.post('/api/students' , async (req , res) => {
         res.status(400).json({message : error.message});
     }
 })
-app.put('/api/students' , () => {
-    
+app.put('/api/students/:id' , async (req , res) => {
+    try {
+        const {Name , rollno} = req.body
+        const updated = await Student.findByIdAndUpdate(req.params.id , {Name , rollno})
+        if(!updated){
+            res.send("no data to be updated")
+        }
+        res.send(updated)
+    } catch (error) {
+        res.status(400).json({message : error.message})
+    }
 })
 app.delete('/api/students' , () => {
     
